@@ -49,25 +49,6 @@ app.command("/mate", async ({ client, command, ack, say }) => {
     }
 });
 
-// Handling the mate2 command
-app.command("/mate2", async ({ command, ack, say }) => {
-    try { 
-      let subCommand = command.text;
-      await ack();
-      if(!!subCommand){
-        subCommand = subCommand.toLowerCase();
-        if(subCommand.includes("drop")){
-            const dropReply = await handleDrop(subCommand);
-            say(dropReply);
-        };
-      } else {
-        say(`Type /mate2 help to see what I can do 😊`);
-      }
-    } catch (error) {
-      console.log("Error is:", error);
-    }
-});
-
 // Handling personal messages
 app.message(/joke/, async ({ say }) => {
     try {
