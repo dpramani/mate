@@ -69,7 +69,7 @@ module.exports = async function handleDrop(subCommand){
     else if(subCommand.includes("sprint") && subCommand.includes("name")){
         result = randomMovieNames();   
     }
-    else if(subCommand.includes("ice breaker")){
+    else if(subCommand.includes("icebreaker")){
         result = `🧊🔨 ${iceBreakerQuestions[Math.floor(Math.random()*iceBreakerQuestions.length)]}`;
     }
     else {
