@@ -1,0 +1,67 @@
+// Imports
+const { App } = require("@slack/bolt");
+const handleDrop = require("./utilities/handleDrop");
+require("dotenv").config();
+
+// Initializing the app
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+  socketMode: true,
+  appToken: process.env.APP_TOKEN,
+});
+
+// Handling the mate command
+app.command("/mate", async ({ command, ack, say }) => {
+    try { 
+      let subCommand = command.text;
+      await ack();
+      if(!!subCommand){
+        subCommand = subCommand.toLowerCase();
+        if(subCommand.includes("drop")){
+            const dropReply = await handleDrop(subCommand);
+            say(dropReply);
+        };
+      } else {
+        say(`Type /mate help to see what I can do`);
+      }
+    } catch (error) {
+      console.log("Error is:", error);
+    }
+});
+
+// Handling the mate2 command
+app.command("/mate2", async ({ command, ack, say }) => {
+    try { 
+      let subCommand = command.text;
+      await ack();
+      if(!!subCommand){
+        subCommand = subCommand.toLowerCase();
+        if(subCommand.includes("drop")){
+            const dropReply = await handleDrop(subCommand);
+            say(dropReply);
+        };
+      } else {
+        say(`Type /mate2 help to see what I can do`);
+      }
+    } catch (error) {
+      console.log("Error is:", error);
+    }
+});
+
+// Handling personal messages
+app.message(/joke/, async ({ say }) => {
+    try {
+      say("I don't have any joke");
+    } catch (error) {
+      console.log("error");
+      console.error(error);
+    }
+});
+
+// Starting the app
+(async () => {
+  const port = process.env.PORT || 3000;
+  await app.start(port);
+  console.log(`The server is running on port ${port}!`);
+})();
