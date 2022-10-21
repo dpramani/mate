@@ -56,7 +56,15 @@ module.exports = async function handleDrop(subCommand){
         };
          response = await axios.request(options);
          console.log("The packages come here:", response.data);
-         result = "Work in progress";
+
+        const myMap = await gatherInfo(response)
+        let finalStr = ""; 
+        for (let [key, value] of myMap) {            
+            let result = `\n>Name: ${key} \n> npm Url: ${value} \n`
+            finalStr = finalStr + result
+        }
+        result = "🙌 *Here are the Top 10 npm packages for your search:* \n" + finalStr;
+        return result;
     }
     else if(subCommand.includes("sprint") && subCommand.includes("name")){
         result = randomMovieNames();   
@@ -69,3 +77,19 @@ module.exports = async function handleDrop(subCommand){
     }
     return result;
  };
+
+ async function gatherInfo(response) {
+    let responseData = response.data
+
+    const myMap = new Map();
+
+    if (response.data.objects && response.data.objects.length > 0) {
+        for (let i = 0; i < response.data.objects.length; i++) {
+            let name = response.data.objects[i].package.name
+            let npm = response.data.objects[i].package.links.npm
+
+            myMap.set(name, npm)
+        }
+    }
+    return myMap;
+ }
