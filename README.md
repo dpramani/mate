@@ -7,5 +7,3 @@
 #### `/mate drop a joke`: Cracks a joke
 #### `/mate drop tech news`: Tells you some recent tech news
 #### `/mate drop news`: Tells you some recent non-tech news 
-#### `/mate drop news`: Tells you some recent non-tech news
-#### `/mate drop news`: Tells you some recent non-tech news 
