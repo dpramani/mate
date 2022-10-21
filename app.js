@@ -24,9 +24,8 @@ app.command("/mate", async ({ client, command, ack, say }) => {
             say(dropReply);
         } else if(subCommand.includes("mrsweeper")) {
           const resultArray = await handleSweeper(client, subCommand);
-          console.log("The resultArray is: " +resultArray)
           if (resultArray && resultArray.length > 0) {
-            say('🔎 👀 *List of MRs*:')
+            await say('🔎 👀 *List of MRs*:')
             for (let i = 0; i < resultArray.length; i++) {
               say(resultArray[i])
             }
@@ -36,7 +35,7 @@ app.command("/mate", async ({ client, command, ack, say }) => {
         } else if(subCommand.includes("help")) {
           say("📙 *Here are the commands that I understand:* \n" + 
           "`/mate mrsweeper [insert channel name]`: Sweeps through the channel and collects all recent MRs \n" + 
-          "`/mate drop npm packages for [insert package name]`: Returns the npm package for [package name] \n" +
+          "`/mate drop npm packages for [insert package name]`: Returns top 10 npm packages for [package name] \n" +
           "`/mate drop an icebreaker question`: Asks an icebreaker question \n" +
           "`/mate drop a joke`: Cracks a joke \n" + 
           "`/mate drop tech news`: Tells you some recent tech news \n" + 
