@@ -46,6 +46,18 @@ module.exports = async function handleDrop(subCommand){
         response = await axios.request(options);
         result = `🌎🗞 ${response.data.results[0].description}` || "Sorry no news at the moment 😥";
     } 
+    else if(subCommand.includes("npm packages for")){
+         subCommand = subCommand.trim();
+         const searchTerm = subCommand.split(' ').pop();
+         console.log("The search term is:", searchTerm);
+         const options = {
+            method: 'GET',
+            url: `https://registry.npmjs.com/-/v1/search?text=${searchTerm}&size=10`
+        };
+         response = await axios.request(options);
+         console.log("The packages come here:", response.data);
+         result = "Work in progress";
+    }
     else if(subCommand.includes("sprint") && subCommand.includes("name")){
         result = randomMovieNames();   
     }
@@ -53,7 +65,7 @@ module.exports = async function handleDrop(subCommand){
         result = `🧊🔨 ${iceBreakerQuestions[Math.floor(Math.random()*iceBreakerQuestions.length)]}`;
     }
     else {
-        return "You can only drop a joke or news or tech news or a sprint name or a ice breaker question 🙂";
+        return "You can only drop a joke or news or tech news or a sprint name or a ice breaker question or npm packages for 🙂. Check /mate help for more info";
     }
     return result;
  };
