@@ -34,13 +34,13 @@ app.command("/mate", async ({ client, command, ack, say }) => {
             say(`You don't have any MRs to sweep. 😥`);
           }
         } else if(subCommand.includes("help")) {
-          say(`📙 *Here are the commands that I understand:*`)
-          say("`/mate drop a joke`: Cracks a joke")
-          say("`/mate drop tech news`: Tells you some recent tech news")
-          say("`/mate drop news`: Tells you some recent non-tech news")
-          say("`/mate drop an icebreaker question`: Asks an icebreaker question")
-          say("`/mate mrsweeper [insert channel name]`: Sweeps through the channel and collects all recent MRs")
-          say("`/mate find npm packages for [insert package name]`: Returns the npm package for [package name]")
+          say("📙 *Here are the commands that I understand:* \n" + 
+          "`/mate mrsweeper [insert channel name]`: Sweeps through the channel and collects all recent MRs \n" + 
+          "`/mate drop npm packages for [insert package name]`: Returns the npm package for [package name] \n" +
+          "`/mate drop an icebreaker question`: Asks an icebreaker question \n" +
+          "`/mate drop a joke`: Cracks a joke \n" + 
+          "`/mate drop tech news`: Tells you some recent tech news \n" + 
+          "`/mate drop news`: Tells you some recent non-tech news \n")
         } else {
           say(`Type /mate help to see what I can do 😊`);
         }
