@@ -1,9 +1,8 @@
 // Find specified channel `general`
 module.exports = async function handleSweeper(client, subCommand) {
-    console.log(client)
     console.log("Inside handleSweeper");
-    findChannel(client, "general");
-    const arr = await getChannelHistory(client)
+    const channelId = await findChannel(client, "test2");
+    const arr = await getChannelHistory(client, channelId)
     return arr
   };
     // Find conversation ID using the conversations.list method
@@ -12,7 +11,7 @@ module.exports = async function handleSweeper(client, subCommand) {
       // Call the conversations.list method using the built-in WebClient
       const result = await client.conversations.list({
         // The token you used to initialize your app
-        token: "xoxb-4254303691764-4251919334163-mdEF3BS91jAwHlTAdnYWa3aj"
+        token: process.env.SLACK_BOT_TOKEN
       });
       for (const channel of result.channels) {
         if (channel.name === name) {
@@ -27,13 +26,13 @@ module.exports = async function handleSweeper(client, subCommand) {
     catch (error) {
       console.error(error);
     }
+    return channelId;
   }
-  async function getChannelHistory(client) {
+
+  async function getChannelHistory(client, channelId) {
     // Store conversation history
     let conversationHistory;
-    // ID of channel you watch to fetch the history for
-    // Need to do a GET command to get JSON output from the "channels" array
-    let channelId = "C047AS8CGCV"; // Will be the #general channelId returned from the previous function
+  
     try {
     // Call the conversations.history method using WebClient
     const result = await client.conversations.history({
@@ -45,7 +44,7 @@ module.exports = async function handleSweeper(client, subCommand) {
     var json = JSON.stringify(conversationHistory);
     var arr = await getMR(client, json, conversationHistory)
     } catch (error) {
-        console.error(error);
+        console.error("Inside getChannelHistory" + error);
     }
     return arr;
   }
@@ -60,6 +59,7 @@ module.exports = async function handleSweeper(client, subCommand) {
         console.log(arr[i] + "\n")
     }
     const uniqueArray = arr.filter(function(item, pos) {
+      console.log("Item: " + item)
       return arr.indexOf(item) == pos;
     })
     return uniqueArray;

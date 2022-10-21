@@ -24,16 +24,18 @@ app.command("/mate", async ({ client, command, ack, say }) => {
             say(dropReply);
         } else if(subCommand.includes("mrsweeper")) {
           const resultArray = await handleSweeper(client, subCommand);
-          if (resultArray.length > 0) {
-            for (let i = 0; i < (await resultArray).length; i++) {
+          console.log("The resultArray is: " +resultArray)
+          if (resultArray && resultArray.length > 0) {
+            say('🔎 👀 *List of MRs*:')
+            for (let i = 0; i < resultArray.length; i++) {
               say(resultArray[i])
             }
-          }
           } else {
             say(`You don't have any MRs to sweep. 😥`);
           }
-      } else {
-        say(`Type /mate help to see what I can do 😊`);
+        } else {
+          say(`Type /mate help to see what I can do 😊`);
+        }
       }
     } catch (error) {
       console.log("Error is:", error);
