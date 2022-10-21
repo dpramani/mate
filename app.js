@@ -1,6 +1,7 @@
 // Imports
 const { App } = require("@slack/bolt");
 const handleDrop = require("./utilities/handleDrop");
+const handleSweeper = require("./utilities/handleSweeper");
 require("dotenv").config();
 
 // Initializing the app
@@ -12,7 +13,7 @@ const app = new App({
 });
 
 // Handling the mate command
-app.command("/mate", async ({ command, ack, say }) => {
+app.command("/mate", async ({ client, command, ack, say }) => {
     try { 
       let subCommand = command.text;
       await ack();
@@ -21,7 +22,16 @@ app.command("/mate", async ({ command, ack, say }) => {
         if(subCommand.includes("drop")){
             const dropReply = await handleDrop(subCommand);
             say(dropReply);
-        };
+        } else if(subCommand.includes("mrsweeper")) {
+          const resultArray = await handleSweeper(client, subCommand);
+          if (resultArray.length > 0) {
+            for (let i = 0; i < (await resultArray).length; i++) {
+              say(resultArray[i])
+            }
+          }
+          } else {
+            say(`You don't have any MRs to sweep.`);
+          }
       } else {
         say(`Type /mate help to see what I can do`);
       }
