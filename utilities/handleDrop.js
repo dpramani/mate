@@ -28,7 +28,7 @@ module.exports = async function handleDrop(subCommand){
             url: 'https://api.chucknorris.io/jokes/random'
         };
         response = await axios.request(options);
-        result = response.data.value || "Sorry no joke at the moment";
+        result = `${response.data.value} 🤣 🤣 🤣` || "Sorry no joke at the moment 😥";
     } 
     else if(subCommand.includes("tech") && subCommand.includes("news")){
         const options = {
@@ -36,7 +36,7 @@ module.exports = async function handleDrop(subCommand){
             url: `https://newsdata.io/api/1/news?apikey=${process.env.NEWS_DATA_API_KEY}&category=technology&country=us`
         };
         response = await axios.request(options);
-        result = response.data.results[0].description || "Sorry no tech news at the moment";
+        result = `🤓🗞 ${response.data.results[0].description}` || "Sorry no tech news at the moment 😥";
     }
     else if(subCommand.includes("news")){
         const options = {
@@ -44,17 +44,16 @@ module.exports = async function handleDrop(subCommand){
             url: `https://newsdata.io/api/1/news?apikey=${process.env.NEWS_DATA_API_KEY}&country=us`
         };
         response = await axios.request(options);
-        result = response.data.results[0].description || "Sorry no news at the moment";
+        result = `🌎🗞 ${response.data.results[0].description}` || "Sorry no news at the moment 😥";
     } 
     else if(subCommand.includes("sprint") && subCommand.includes("name")){
         result = randomMovieNames();   
     }
     else if(subCommand.includes("ice breaker")){
-        result = iceBreakerQuestions[Math.floor(Math.random()*iceBreakerQuestions.length)];
-        console.log(result);
+        result = `🧊🔨 ${iceBreakerQuestions[Math.floor(Math.random()*iceBreakerQuestions.length)]}`;
     }
     else {
-        return "You can only drop a joke or news or tech news or a sprint name or a ice breaker question";
+        return "You can only drop a joke or news or tech news or a sprint name or a ice breaker question 🙂";
     }
     return result;
  };

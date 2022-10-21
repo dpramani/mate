@@ -31,10 +31,10 @@ app.command("/mate", async ({ client, command, ack, say }) => {
               say(resultArray[i])
             }
           } else {
-            say(`You don't have any MRs to sweep.`);
+            say(`You don't have any MRs to sweep. 😥`);
           }
         } else {
-          say(`Type /mate help to see what I can do`);
+          say(`Type /mate help to see what I can do 😊`);
         }
       }
     } catch (error) {
@@ -54,7 +54,7 @@ app.command("/mate2", async ({ command, ack, say }) => {
             say(dropReply);
         };
       } else {
-        say(`Type /mate2 help to see what I can do`);
+        say(`Type /mate2 help to see what I can do 😊`);
       }
     } catch (error) {
       console.log("Error is:", error);
@@ -64,7 +64,7 @@ app.command("/mate2", async ({ command, ack, say }) => {
 // Handling personal messages
 app.message(/joke/, async ({ say }) => {
     try {
-      say("I don't have any joke");
+      say("I don't have any joke 😥");
     } catch (error) {
       console.log("error");
       console.error(error);
