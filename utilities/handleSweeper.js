@@ -35,6 +35,7 @@ async function findChannel(client, name) {
 async function getChannelHistory(client, channelId) {
     // Store conversation history
     let conversationHistory;
+    let arr;
   
     try {
     // Call the conversations.history method using WebClient
@@ -42,24 +43,21 @@ async function getChannelHistory(client, channelId) {
         channel: channelId
     });
     conversationHistory = result.messages;
-    let json = JSON.stringify(conversationHistory);
-    let arr = await getMR(client, json, conversationHistory)
+    arr = await getMR(conversationHistory)
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
     return arr;
 }
 
 // Gets all the merge requests
-async function getMR(client, json, conversationHistory) {
+async function getMR(conversationHistory) {
     let arr = []
+    conversationHistory = conversationHistory.sort((a, b) => a.ts < b.ts ? 1 : -1);
     for (let i = 0; i < conversationHistory.length; i++) {
         if (conversationHistory[i].text.includes("merge_requests")) {
             arr.push(conversationHistory[i].text)
         }
-    }
-    for (let i = 0; i < arr.length; i++) {
-        console.log(arr[i] + "\n")
     }
     const uniqueArray = arr.filter(function(item, pos) {
       return arr.indexOf(item) == pos;
